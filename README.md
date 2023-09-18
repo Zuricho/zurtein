@@ -1,10 +1,16 @@
 # zurtein
 A python package for protein sequence and structure analysis
 
-# Installation
+## Installation
 
 ```
 pip install git+https://github.com/Zuricho/zurtein.git
+```
+
+Local installation
+
+```
+pip install git+file:///path/to/your/repo.git
 ```
 
 To update
