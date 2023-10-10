@@ -1,0 +1,73 @@
+class FoldSeekAlignment:
+    def __init__(self, line):
+        fields = line.strip().split('\t')
+        
+        if len(fields) == 21:
+            # for most databases
+            self.qseqid = fields[0]
+            self.tseqid = fields[1]
+            self.pident = float(fields[2])
+            self.alnlen = int(fields[3])
+            self.mismatch = int(fields[4])
+            self.gapopen = int(fields[5])
+            self.qstart = int(fields[6])
+            self.qend = int(fields[7])
+            self.tstart = int(fields[8])
+            self.tend = int(fields[9])
+            self.evalue = float(fields[10])
+            self.bitscore = float(fields[11])
+            self.prob = int(fields[12])
+            self.qlen = int(fields[13])
+            self.tlen = int(fields[14])
+            self.qaln = fields[15]
+            self.taln = fields[16]
+            self.tca = [float(x) for x in fields[17].split(',')]
+            self.tseq = fields[18]
+            self.ttaxid = fields[19]
+            self.ttaxname = fields[20]
+        elif len(fields) == 19:
+            # for GMGC and MGnify
+            self.qseqid = fields[0]
+            self.tseqid = fields[1]
+            self.pident = float(fields[2])
+            self.alnlen = int(fields[3])
+            self.mismatch = int(fields[4])
+            self.gapopen = int(fields[5])
+            self.qstart = int(fields[6])
+            self.qend = int(fields[7])
+            self.tstart = int(fields[8])
+            self.tend = int(fields[9])
+            self.evalue = float(fields[10])
+            self.bitscore = float(fields[11])
+            self.prob = int(fields[12])
+            self.qlen = int(fields[13])
+            self.tlen = int(fields[14])
+            self.qaln = fields[15]
+            self.taln = fields[16]
+            self.tca = [float(x) for x in fields[17].split(',')]
+            self.tseq = fields[18]
+            self.ttaxid = None
+            self.ttaxname = None
+        else:
+            raise ValueError("Invalid FoldSeek .m8 line format")
+
+    def __str__(self):
+        return f"Query: {self.query_id}, target: {self.pident}, E-value: {self.evalue}, Bit Score: {self.bit_score}"
+    
+    def print_alignment(self):
+        print(f"Query: {self.qaln}")
+        print(f"Targt: {self.taln}")
+
+
+
+class FoldSeekAlignmentParser:
+    def __init__(self, filename):
+        self.filename = filename
+
+    def parse(self):
+        with open(self.filename, 'r') as f:
+            alignments = [FoldSeekAlignment(line) for line in f.readlines()]
+        return alignments
+
+
+
