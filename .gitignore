@@ -5,6 +5,7 @@
 .vscode/
 .idea/
 *.pkl
+.DS_store
 
 
 # Byte-compiled / optimized / DLL files
