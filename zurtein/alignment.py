@@ -1,3 +1,80 @@
+class SequenceAlignment:
+    """
+    A class to represent a sequence alignment and support reading from multiple file formats.
+    Currently supports FASTA, Stockholm (STO), and A3M formats.
+    """
+
+    def __init__(self):
+        self.sequences = {}
+    
+    def read_fasta(self, filename):
+        """
+        Reads a multiple sequence alignment from a FASTA file.
+        """
+        with open(filename, 'r') as file:
+            sequence_id = None
+            sequence_data = None
+            for line in file:
+                if line.startswith('>'):
+                    if sequence_id is not None and sequence_data is not None:
+                        self.sequences[sequence_id] = ''.join(sequence_data)
+                    sequence_id = line[1:].strip()
+                    sequence_data = []
+                else:
+                    sequence_data.append(line.strip())
+            if sequence_id is not None and sequence_data is not None:
+                self.sequences[sequence_id] = ''.join(sequence_data)
+
+    def read_sto(self, filename):
+        """
+        Reads a multiple sequence alignment from a Stockholm file.
+        """
+        with open(filename, 'r') as file:
+            for line in file:
+                if not line.startswith('#') and not line.startswith('//') and line.strip():
+                    parts = line.split()
+                    if len(parts) == 2:
+                        sequence_id, sequence = parts
+                        if sequence_id in self.sequences:
+                            self.sequences[sequence_id] += sequence
+                        else:
+                            self.sequences[sequence_id] = sequence
+
+    def read_a3m(self, filename):
+        """
+        Reads a multiple sequence alignment from an A3M file.
+        A3M files are similar to FASTA, but can include lower case letters
+        and dots to represent gaps. This function will convert them to upper
+        case and remove the dots for consistency.
+        """
+        with open(filename, 'r') as file:
+            sequence_id = None
+            sequence_data = None
+            for line in file:
+                if line.startswith('>'):
+                    if sequence_id is not None and sequence_data is not None:
+                        self.sequences[sequence_id] = ''.join(sequence_data).replace('.', '').upper()
+                    sequence_id = line[1:].strip()
+                    sequence_data = []
+                else:
+                    sequence_data.append(line.strip())
+            if sequence_id is not None and sequence_data is not None:
+                self.sequences[sequence_id] = ''.join(sequence_data).replace('.', '').upper()
+
+    def get_sequences(self):
+        """
+        Returns the dictionary of sequences.
+        """
+        return self.sequences
+
+
+
+
+
+
+
+
+
 class FoldSeekAlignment:
     def __init__(self, line):
         fields = line.strip().split('\t')
