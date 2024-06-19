@@ -1,32 +1,25 @@
-*.npy
+# data files
 *.tsv
 *.fasta
+
+# slurm submit files
 *.slurm
+
+# vscode
 .vscode/
-.idea/
+
+# python
 *.pkl
-.DS_store
-
-
-# Byte-compiled / optimized / DLL files
+*.npy
 __pycache__/
-*.py[cod]
-*$py.class
-
-
-# Distribution / packaging
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-
 
 # Jupyter Notebook
 .ipynb_checkpoints
 *.ipynb
+
+# mac
+.DS_store
+
 
 
 

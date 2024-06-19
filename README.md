@@ -1,5 +1,8 @@
-# zurtein
-A python package for protein sequence and structure analysis
+# Zurtein
+
+Author: [Zuricho](www.zbztzhz.com)
+
+Zurtein is a python package for protein sequence and structure analysis
 
 ## Installation
 
