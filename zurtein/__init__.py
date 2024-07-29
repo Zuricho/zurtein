@@ -1,2 +1,4 @@
-from zurtein.sequence import Sequence
-from zurtein.alignment import SequenceAlignment
+import zurtein.sequence
+import zurtein.alignment
+import zurtein.structure
+

@@ -1,4 +1,6 @@
 from typing import List
+
+
 # Parses fasta file and returns sequence header and sequence in a list
 class Sequence:
     def __init__(self, header: str, sequence: str):
